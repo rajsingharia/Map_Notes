@@ -2,7 +2,7 @@
 A Flutter project.
 
 App in which you can add 
-->Parking Marks\n
+->Parking Marks
 ->Future visits Marks
 ->Land Marks
 
