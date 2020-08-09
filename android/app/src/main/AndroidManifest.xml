@@ -13,10 +13,13 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="google_map"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        
+        >
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyDvXH5kxU8qiJr91IjkMqQx0Ua8yotfPV4"/>
+        android:value="AIzaSyD5G_qIhrkJqy5yCyIBHScJeMGPlUL9fW0"/>
+        
         
         <activity
             android:name=".MainActivity"

@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_map/initial/WelcomeScreen.dart';
+import 'package:google_map/services/CrudMarkers.dart';
+import 'package:lottie/lottie.dart';
 import 'maps.dart';
 
 void main() {
@@ -13,47 +16,74 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
+  void initState() {
+    super.initState();
+    isUserAlreadrLoggedIn();
+  }
+
+  int pos = 2;
+  void isUserAlreadrLoggedIn() async {
+    await FirebaseAuth.instance.currentUser().then((value) {
+      currUser = value.uid.toString();
+    });
+    if (await FirebaseAuth.instance.currentUser() != null) {
+      setState(() {
+        pos = 1;
+      });
+    } else if (await FirebaseAuth.instance.currentUser() == null) {
+      setState(() {
+        pos = 0;
+      });
+    }
+  }
+
+  var screenDisplay = {WelcomeScreen(), Maps(), LoadingScreen()};
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
       ),
       title: "Maps",
-      home: HomePage(),
+      // home: SplashScreen(
+      //   seconds: 2,
+      //   backgroundColor: Colors.white,
+      //   image: Image.asset('assets/anim/loading.gif'),
+      //   title: Text(
+      //     "Map Notes",
+      //     style: TextStyle(
+      //       fontSize: 40,
+      //       fontWeight: FontWeight.w900,
+      //     ),
+      //   ),
+      //   loaderColor: Colors.white,
+      //   photoSize: 150,
+      //   navigateAfterSeconds: screenDisplay.elementAt(pos),
+      // ),
+      home: screenDisplay.elementAt(pos),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
+class LoadingScreen extends StatefulWidget {
+  LoadingScreen({Key key}) : super(key: key);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  _LoadingScreenState createState() => _LoadingScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Maps",
-            style: TextStyle(
-              color: Colors.white,
-            )),
-      ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
-        alignment: Alignment.bottomRight,
-        child: FloatingActionButton(
-            backgroundColor: Colors.deepPurple,
-            child: Icon(
-              Icons.map,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Maps();
-              }));
-            }),
+        color: Colors.white,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Center(
+          child: Hero(
+              tag: "loading", child: Lottie.asset('assets/anim/map_anim.json')),
+        ),
       ),
     );
   }

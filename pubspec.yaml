@@ -31,6 +31,14 @@ dependencies:
   google_maps_flutter: ^0.5.28+1
   geolocator: '^5.1.1'
   flutter_speed_dial: ^1.2.5
+  rflutter_alert: ^1.0.3
+  firebase_auth: ^0.16.1
+  cloud_firestore: ^0.13.7
+  lottie: ^0.4.1
+  image_picker: ^0.6.7+4
+  firebase_storage: ^3.1.6
+  permission_handler: ^5.0.1+1
+  
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +58,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/anim/
+    - assets/style/
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
